@@ -74,6 +74,18 @@ class InstagramBotService:
         self.user_id = None
 
     def login(self) -> bool:
+        sessionid = os.getenv("INSTAGRAM_SESSIONID", "")
+        if sessionid:
+            try:
+                logger.info("Attempting Instagram login via INSTAGRAM_SESSIONID cookie...")
+                self.cl.login_by_sessionid(sessionid)
+                self.user_id = self.cl.user_id
+                self.is_logged_in = True
+                logger.info(f"Successfully logged in via sessionid as user_id: {self.user_id}")
+                return True
+            except Exception as e:
+                logger.error(f"Failed to log in via sessionid: {e}")
+
         if not INSTAGRAM_USERNAME or not INSTAGRAM_PASSWORD:
             logger.error("INSTAGRAM_USERNAME or INSTAGRAM_PASSWORD not set in environment!")
             return False
