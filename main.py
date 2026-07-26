@@ -206,7 +206,8 @@ async def background_loop():
             if bot_service.is_logged_in:
                 await loop.run_in_executor(None, bot_service.check_and_reply_dms)
             else:
-                logger.warning("Bot waiting for valid login credentials...")
+                logger.warning("Bot is not logged in. Retrying login...")
+                await loop.run_in_executor(None, bot_service.login)
         except Exception as e:
             logger.error(f"Unhandled error in background loop: {e}")
 
