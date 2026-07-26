@@ -24,7 +24,7 @@ if AI_BASE_URL.endswith("/chat/completions"):
 elif AI_BASE_URL.endswith("/chat/completions/"):
     AI_BASE_URL = AI_BASE_URL[:-len("/chat/completions/")]
 
-AI_MODEL = os.getenv("AI_MODEL", "gpt-4o")
+AI_MODEL = os.getenv("AI_MODEL", "zenith/gpt-5.2")
 CHECK_INTERVAL_SECONDS = int(os.getenv("CHECK_INTERVAL_SECONDS", "30"))
 SYSTEM_PROMPT = os.getenv(
     "SYSTEM_PROMPT",
