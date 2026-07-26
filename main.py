@@ -70,6 +70,8 @@ def save_replied_messages():
 class InstagramBotService:
     def __init__(self):
         self.cl = Client()
+        self.cl.set_country("US")
+        self.cl.set_locale("en_US")
         self.is_logged_in = False
         self.user_id = None
 
@@ -90,7 +92,7 @@ class InstagramBotService:
             logger.error("INSTAGRAM_USERNAME or INSTAGRAM_PASSWORD not set in environment!")
             return False
 
-        logger.info("Attempting Instagram login...")
+        logger.info(f"Attempting Instagram login for @{INSTAGRAM_USERNAME}...")
         
         # Try loading existing session to avoid challenge / ban
         if os.path.exists(SESSION_FILE):
@@ -106,7 +108,7 @@ class InstagramBotService:
                 logger.warning(f"Could not login with saved session: {e}. Trying fresh login...")
 
         try:
-            self.cl.login(INSTAGRAM_USERNAME, INSTAGRAM_PASSWORD)
+            self.cl.login(INSTAGRAM_USERNAME.strip(), INSTAGRAM_PASSWORD.strip())
             self.cl.dump_settings(SESSION_FILE)
             self.user_id = self.cl.user_id
             self.is_logged_in = True
