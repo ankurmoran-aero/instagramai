@@ -1,0 +1,8 @@
+.env
+*.env
+__pycache__/
+*.pyc
+instagram_session.json
+replied_messages.json
+.venv/
+venv/
